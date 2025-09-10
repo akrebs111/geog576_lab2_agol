@@ -1,0 +1,90 @@
+<!--Alex Krebs Geog576 Lab 1-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Geog576 Lab 1</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+
+<!-- calls for arcgis api's css file and js lib-->
+<link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+<script src="https://js.arcgis.com/4.25/"></script>
+
+<!--modules for widgets-->
+<script>
+
+  require([
+    "esri/config", 
+      "esri/Map", 
+      "esri/views/MapView",
+      "esri/widgets/BasemapGallery",
+      "esri/widgets/Expand",
+      "esri/widgets/Locate",
+      "esri/widgets/Search"
+  ], function(esriConfig, Map, MapView, BasemapGallery, Expand, Locate, Search) {  
+      
+    esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurGfXZVUftvXPbMTy0-GRI5ojxO2vkMfNJUc6LuBspKHa7_8adflxgEqdwsbZT_y64VwrYucfHRmak8KqEqK9KojibVke2tZigq1P4aWdi2ARSVyPCfBRuJPzRCNXkKqmMNKADPP407Mua44OxDb8aE4N4-3Rp6rAphNctReWb-FZ2fqziGxRK72mw3mmQSZtV-5YfnA0EHXD4rWw1OwRwQU-VcnibfCw_FYsDSK_eK6lAT1_77qtARkK";
+    const map = new Map({
+        basemap: "streets-vector" //basemap layer
+      });
+
+      const view = new MapView({
+          map: map,
+          center: [-89.0275, 42.6821], // center on Janesville, 
+          zoom: 12, 
+          container: "viewDiv" 
+        });
+      
+      //add widgets
+      const basemapGallery = new BasemapGallery ({
+        view: view
+      });
+      const expandBasemapGallery = new Expand({
+        view:view,
+        content: basemapGallery,
+        expanded: false
+      });
+
+      const locateWidget = new Locate ({
+        view:view
+      });
+
+      const searchWidget = new Search ({
+        view: view});
+      
+      //widget placement
+      
+      view.ui.add(expandBasemapGallery, {
+        position: "top-left",
+      });
+
+      view.ui.add(searchWidget, {
+        position: "bottom-left",
+      });
+
+      view.ui.add(locateWidget, {
+        position: "top-left",
+      });
+  });
+</script>
+
+<!-- css to make full screen map-->
+<style>  
+    html,  
+    body,  
+    #viewDiv {  
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;  
+    } 
+
+  </style> 
+</head>
+<body>
+  <!-- div to display the map-->
+   <div id="viewDiv"></div>
+</body>
+</html>
