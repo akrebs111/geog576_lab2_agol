@@ -22,8 +22,10 @@
       "esri/widgets/BasemapGallery",
       "esri/widgets/Expand",
       "esri/widgets/Locate",
-      "esri/widgets/Search"
-  ], function(esriConfig, Map, MapView, BasemapGallery, Expand, Locate, Search) {  
+      "esri/widgets/Search",
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer"
+  ], function(esriConfig, Map, MapView, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer) {  
       
     esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurGfXZVUftvXPbMTy0-GRI5ojxO2vkMfNJUc6LuBspKHa7_8adflxgEqdwsbZT_y64VwrYucfHRmak8KqEqK9KojibVke2tZigq1P4aWdi2ARSVyPCfBRuJPzRCNXkKqmMNKADPP407Mua44OxDb8aE4N4-3Rp6rAphNctReWb-FZ2fqziGxRK72mw3mmQSZtV-5YfnA0EHXD4rWw1OwRwQU-VcnibfCw_FYsDSK_eK6lAT1_77qtARkK";
     const map = new Map({
@@ -36,7 +38,32 @@
           zoom: 12, 
           container: "viewDiv" 
         });
-      
+
+      const graphicsLayer = new GraphicsLayer();  
+      map.add(graphicsLayer);
+    
+    const point = { //Create a point  
+      type: "point",  
+      longitude: -89.00454,    //long lat of Stevie Ray Vaughan Statue
+      latitude: 42.67010
+      };
+
+    const simpleMarkerSymbol = {  
+        type: "simple-marker",  
+        color: [0, 0, 139],  // Color of blues rock
+        outline: {  
+          color: [255, 255, 255], // White  
+          width: 1
+        }  
+      };
+
+    const pointGraphic = new Graphic({  
+      geometry: point,  
+      symbol: simpleMarkerSymbol  
+      });
+    
+    graphicsLayer.add(pointGraphic);
+
       //add widgets
       const basemapGallery = new BasemapGallery ({
         view: view
