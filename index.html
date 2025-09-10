@@ -45,10 +45,10 @@
           container: "viewDiv" 
         });
 
-      // Define a pop-up for usaeduLayer
+      // Define a pop-up for ice age trail
       const popupDNR_IceAge_Trail = {
-        "title": "Ice Trail Segment Name",
-        "content": "<b>Name:</b> {SEGMENT_NAME_TEXT}<br>"
+        "title": "Ice Trail Segment Name:",
+        "content": "<b>{SEGMENT_NAME_TEXT}<br>"
       }
 
       const iceagetrailLayer = new FeatureLayer({
@@ -58,8 +58,22 @@
         popupTemplate: popupDNR_IceAge_Trail
       });
 
-        map.add(iceagetrailLayer);
+      map.add(iceagetrailLayer);
 
+      // Define a pop-up for airport ayer
+      const airportsPopup = {
+        "title": "Airport Name:",
+        "content": "<b>{Fac_Name}<br>"
+      }
+
+      const airportLayer = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_Krebs/FeatureServer",
+         //adding the popup here
+        outFields: ["Fac_Name"],
+        popupTemplate: airportsPopup
+      });
+
+      map.add(airportLayer);
 
       const graphicsLayer = new GraphicsLayer();  
       map.add(graphicsLayer);
