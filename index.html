@@ -90,7 +90,7 @@
         symbol: {
           type: "text",
           color: "#FFFFFF",
-          haloColor: "#5E8D74",
+          haloColor: "#000000",
           haloSize: "2px",
           font: {
             size: "12px",
@@ -108,7 +108,7 @@
       const heliportLayer = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_Krebs/FeatureServer",
         renderer: heliportRenderer,
-        definitionExpression: "Fac_Type = 'HELIPORT'", // Only heliports
+        definitionExpression: "Fac_Type = 'HELIPORT' AND State_Name = 'WISCONSIN'",
         labelingInfo: [airportLabels],
         outFields: ["Fac_Name"],
         popupTemplate: {
@@ -123,7 +123,7 @@
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_Krebs/FeatureServer",
         renderer: airportRenderer,
 
-        definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+        definitionExpression: "Fac_Type = 'AIRPORT' AND State_Name = 'WISCONSIN'", //adding sql to filter for airports
         labelingInfo: [airportLabels], //adding the labels
          //adding the popup here
         outFields: ["Fac_Name"],
