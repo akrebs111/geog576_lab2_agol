@@ -24,8 +24,10 @@
       "esri/widgets/Locate",
       "esri/widgets/Search",
       "esri/Graphic",
-      "esri/layers/GraphicsLayer"
-  ], function(esriConfig, Map, MapView, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer) {  
+      "esri/layers/GraphicsLayer",
+      "esri/geometry/Polyline",
+      "esri/symbols/SimpleLineSymbol"
+  ], function(esriConfig, Map, MapView, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer, Polyline, SimpleLineSymbol) {  
       
     esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurGfXZVUftvXPbMTy0-GRI5ojxO2vkMfNJUc6LuBspKHa7_8adflxgEqdwsbZT_y64VwrYucfHRmak8KqEqK9KojibVke2tZigq1P4aWdi2ARSVyPCfBRuJPzRCNXkKqmMNKADPP407Mua44OxDb8aE4N4-3Rp6rAphNctReWb-FZ2fqziGxRK72mw3mmQSZtV-5YfnA0EHXD4rWw1OwRwQU-VcnibfCw_FYsDSK_eK6lAT1_77qtARkK";
     const map = new Map({
@@ -74,6 +76,39 @@
       attributes: attributes,
       popupTemplate: popupTemplate
       });
+
+      const polyline = new Polyline({
+        paths: [
+          [-89.00453794108324, 42.67010422461891],
+          [-89.00449731827311, 42.670050636709014],
+          [-89.00367530394661, 42.670312426401956],
+          [-89.00253547594153, 42.67075342533781]
+        ],
+        spatialReference: {wkid: 4326}
+      });
+
+      const lineSymbol = new SimpleLineSymbol({
+        color: [226, 119, 40], // RGB
+        width: 4
+      });
+
+      const polylineGraphic = new Graphic({
+        geometry: polyline,
+        symbol: lineSymbol
+      });
+      
+      graphicsLayer.add(polylineGraphic);
+
+
+
+
+
+
+
+
+
+
+
     
     graphicsLayer.add(pointGraphic);
 
