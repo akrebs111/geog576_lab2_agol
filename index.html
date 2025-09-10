@@ -60,6 +60,15 @@
 
       map.add(iceagetrailLayer);
 
+    const heliportRenderer= {
+      "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://raw.githubusercontent.com/akrebs111/geog576_lab2_agol/main/helicopter_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.png",
+          "width": "18px",
+          "height": "18px"
+        }
+    }
     const airportRenderer = {
         "type": "simple",
         "symbol": {
@@ -95,6 +104,20 @@
           expression: "$feature.Fac_Name"
         }
       };
+
+      const heliportLayer = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_Krebs/FeatureServer",
+        renderer: heliportRenderer,
+        definitionExpression: "Fac_Type = 'HELIPORT'", // Only heliports
+        labelingInfo: [airportLabels],
+        outFields: ["Fac_Name"],
+        popupTemplate: {
+          title: "Heliport Name:",
+          content: "<b>{Fac_Name}</b><br>"
+        }
+      });
+
+      map.add(heliportLayer);
 
       const airportLayer = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_Krebs/FeatureServer",
