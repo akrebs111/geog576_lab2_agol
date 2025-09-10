@@ -45,10 +45,24 @@
           container: "viewDiv" 
         });
 
+      // Define a pop-up for usaeduLayer
+      const popupDNR_IceAge_Trail = {
+        "title": "Ice Trail Segment Name",
+        "content": "<b>Name:</b> {SEGMENT_NAME_TEXT}<br>"
+      }
+
       const iceagetrailLayer = new FeatureLayer({
-        url: "https://dnrmaps.wi.gov/arcgis/rest/services/LF_DML/LF_DNR_MGD_Recreational_Opp_WTM_Ext/MapServer/2"
-        });
+        url: "https://dnrmaps.wi.gov/arcgis/rest/services/LF_DML/LF_DNR_MGD_Recreational_Opp_WTM_Ext/MapServer/2",
+         //adding the popup here
+        outFields: ["SEGMENT_NAME_TEXT"],
+        popupTemplate: popupDNR_IceAge_Trail
+      });
+
         map.add(iceagetrailLayer);
+     
+
+//adding the feature layer to the map
+map.add(usaeduLayer);
 
       const graphicsLayer = new GraphicsLayer();  
       map.add(graphicsLayer);
