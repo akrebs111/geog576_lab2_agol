@@ -28,9 +28,10 @@
       "esri/geometry/Polyline",
       "esri/symbols/SimpleLineSymbol",
       "esri/geometry/Polygon",
-      "esri/symbols/SimpleFillSymbol"
+      "esri/symbols/SimpleFillSymbol",
+      "esri/layers/FeatureLayer"
 
-  ], function(esriConfig, Map, MapView, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer, Polyline, SimpleLineSymbol, Polygon, SimpleFillSymbol) {  
+  ], function(esriConfig, Map, MapView, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer, Polyline, SimpleLineSymbol, Polygon, SimpleFillSymbol, FeatureLayer) {  
       
     esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurGfXZVUftvXPbMTy0-GRI5ojxO2vkMfNJUc6LuBspKHa7_8adflxgEqdwsbZT_y64VwrYucfHRmak8KqEqK9KojibVke2tZigq1P4aWdi2ARSVyPCfBRuJPzRCNXkKqmMNKADPP407Mua44OxDb8aE4N4-3Rp6rAphNctReWb-FZ2fqziGxRK72mw3mmQSZtV-5YfnA0EHXD4rWw1OwRwQU-VcnibfCw_FYsDSK_eK6lAT1_77qtARkK";
     const map = new Map({
@@ -43,6 +44,11 @@
           zoom: 12, 
           container: "viewDiv" 
         });
+
+      const iceagetrailLayer = new FeatureLayer({
+        url: "https://dnrmaps.wi.gov/arcgis/rest/services/LF_DML/LF_DNR_MGD_Recreational_Opp_WTM_Ext/MapServer/2"
+        });
+        map.add(iceagetrailLayer);
 
       const graphicsLayer = new GraphicsLayer();  
       map.add(graphicsLayer);
@@ -144,50 +150,41 @@
 // Add polygon graphic to the map
 graphicsLayer.add(polygonGraphic);
 
+graphicsLayer.add(pointGraphic);
 
+    //add widgets
+    const basemapGallery = new BasemapGallery ({
+      view: view
+    });
+    const expandBasemapGallery = new Expand({
+      view:view,
+      content: basemapGallery,
+      expanded: false
+    });
 
+    const locateWidget = new Locate ({
+      view:view
+    });
 
-
-
-
-
-
-
-
-    
-    graphicsLayer.add(pointGraphic);
-
-      //add widgets
-      const basemapGallery = new BasemapGallery ({
-        view: view
-      });
-      const expandBasemapGallery = new Expand({
-        view:view,
-        content: basemapGallery,
-        expanded: false
-      });
-
-      const locateWidget = new Locate ({
-        view:view
-      });
-
-      const searchWidget = new Search ({
-        view: view});
+    const searchWidget = new Search ({
+      view: view});
       
       //widget placement
       
-      view.ui.add(expandBasemapGallery, {
-        position: "top-left",
-      });
+    view.ui.add(expandBasemapGallery, {
+      position: "top-left",
+    });
 
-      view.ui.add(searchWidget, {
-        position: "bottom-left",
-      });
+    view.ui.add(searchWidget, {
+      position: "bottom-left",
+    });
 
-      view.ui.add(locateWidget, {
-        position: "top-left",
-      });
+    view.ui.add(locateWidget, {
+      position: "top-left",
+    });
   });
+
+
 </script>
 
 <!-- css to make full screen map-->
